@@ -24,7 +24,30 @@ describe('API Testing', () => {
           .then((response: Cypress.Response<User>) => {
               expect(response.status).to.eq(201);
               expect(response.body).to.deep.equal(newUser);
+              expect(response.body).to.be.ok;
               // Add more assertions as needed
           });
   });
+});
+
+describe('new test', () => {
+    it('more testss', () => {
+        const newUser: User = {
+            id: 11,
+            name: 'John Doe',
+            email: 'john.doe@example.com',
+            // Add more user properties as needed
+        };
+        cy.request({
+            method: 'POST',
+            url: 'https://jsonplaceholder.typicode.com/users',
+            body: newUser,
+            
+        }).then((response) => {
+            // Assert response status code
+            expect(response.status).to.equal(201);
+            expect(response.body).to.deep.eq(newUser)
+            // Add more assertions as needed
+        });
+    });
 });
